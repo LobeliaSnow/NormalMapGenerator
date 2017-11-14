@@ -269,7 +269,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>compute</string>
+     <string>compute (ctrl+b)</string>
     </property>
    </widget>
    <widget class="QOpenGLWidget" name="openGLWidget">
@@ -315,6 +315,9 @@
      <property name="text">
       <string>ディフューズマップ</string>
      </property>
+     <attribute name="buttonGroup">
+      <string notr="true">buttonGroup</string>
+     </attribute>
     </widget>
     <widget class="QRadioButton" name="diffuse_change_2">
      <property name="geometry">
@@ -328,6 +331,9 @@
      <property name="text">
       <string>ノーマルマップ</string>
      </property>
+     <attribute name="buttonGroup">
+      <string notr="true">buttonGroup</string>
+     </attribute>
     </widget>
    </widget>
    <widget class="QPushButton" name="pushButton_2">
@@ -340,7 +346,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>初期設定に戻す</string>
+     <string>初期設定に戻す (ctrl+r)</string>
     </property>
    </widget>
    <zorder>groupBox_5</zorder>
@@ -396,4 +402,7 @@
   <include location="Tool.qrc"/>
  </resources>
  <connections/>
+ <buttongroups>
+  <buttongroup name="buttonGroup"/>
+ </buttongroups>
 </ui>

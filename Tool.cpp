@@ -40,6 +40,7 @@ Tool::Tool(QWidget *parent)
 	//ショートカット登録
 	ui.actionOpen->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_N));
 	ui.actionSave->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_S));
+	ui.pushButton->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_B));
 	ui.pushButton_2->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_R));
 	//初期値代入
 	amplitude = f_cast(ui.doubleSpinBox->value());
@@ -47,6 +48,7 @@ Tool::Tool(QWidget *parent)
 	isOpen = false; normal = nullptr; diffuse = nullptr;
 	//とりあえず非活性化
 	DeactivateApplicationWidget();
+	SettingReset();
 	SwitchDiffuse();
 }
 Tool::~Tool() {
@@ -98,8 +100,8 @@ void Tool::DeactivateApplicationWidget() {
 	ui.actionSave->setDisabled(true);
 	ui.default_radio->setDisabled(true);
 	ui.pushButton_2->setDisabled(true);
-	ui.diffuse_change->setDisabled(true);
 	ui.diffuse_change_2->setDisabled(true);
+	ui.diffuse_change->setDisabled(true);
 }
 //引数でパスを受け取るようにする
 void Tool::LoadFile(QString& path) {
@@ -110,7 +112,7 @@ void Tool::LoadFile(QString& path) {
 	ui.progressBar->setValue(90);
 	isOpen = true;
 	ui.progressBar->setValue(100);
-	normal.reset();
+	normal.reset(nullptr);
 	SwitchDiffuse();
 }
 void Tool::PictureScalingRender() {
@@ -177,7 +179,7 @@ void Tool::Update() {
 			isDiffuse = true;
 		}
 	}
-	if (normal)ui.diffuse_change_2->setDisabled(false);
+	if (normal && !isCompute)ui.diffuse_change_2->setDisabled(false);
 	else ui.diffuse_change_2->setDisabled(true);
 }
 void Tool::Render() {
@@ -211,6 +213,7 @@ void Tool::dropEvent(QDropEvent *event) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Tool::ComputeNormalMap() {
 	if (!isOpen)return;
+	isCompute = true;
 	DeactivateApplicationWidget();
 	ui.progressBar->setValue(0);
 	amplitude = f_cast(ui.doubleSpinBox->value());
@@ -236,6 +239,7 @@ void Tool::ComputeNormalMap() {
 	renderer->GetMaterial()->ChangeTexture(normal.get());
 	ui.progressBar->setValue(100);
 	ActivateApplicationWidget();
+	isCompute = false;
 	SwitchNormal();
 }
 void Tool::FileOpen() {
@@ -246,7 +250,7 @@ void Tool::FileOpen() {
 	LoadFile(path);
 }
 void Tool::FileSave() {
-	if (!isOpen && normal)return;
+	if (!isOpen || !normal)return;
 	ui.progressBar->setValue(0);
 	QString path = QFileDialog::getSaveFileName(this, "Save File", "", tr("WIC Format (*.png;*.jpg;*.bmp);;TGA Format (*.tga);;All Files (*)"));
 	if (path.isEmpty())return;
@@ -256,11 +260,13 @@ void Tool::FileSave() {
 }
 void Tool::SettingReset() {
 	ui.progressBar->setValue(0);
+	ui.diffuse_change_2->setChecked(true);
+	ui.diffuse_change->setChecked(true);
 	ui.default_radio->setChecked(true);
 	ui.mirror_u->setChecked(false);
 	ui.mirror_v->setChecked(false);
 	ui.invert_vector->setChecked(false);
 	ui.compute_occlusion->setChecked(false);
 	ui.progressBar->setValue(100);
-	amplitude = -15.0f;
+	ui.doubleSpinBox->setValue(-15.0);
 }

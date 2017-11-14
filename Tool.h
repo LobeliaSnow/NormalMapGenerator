@@ -16,6 +16,7 @@ private:
 	float amplitude;
 	bool isOpen;
 	bool isDiffuse;
+	bool isCompute;
 public:
 	Tool(QWidget *parent = Q_NULLPTR);
 	~Tool();

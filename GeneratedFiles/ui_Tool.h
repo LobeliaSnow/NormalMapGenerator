@@ -64,6 +64,7 @@ public:
     QMenu *menu;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
+    QButtonGroup *buttonGroup;
 
     void setupUi(QMainWindow *ToolClass)
     {
@@ -155,9 +156,13 @@ public:
         groupBox_5->setObjectName(QStringLiteral("groupBox_5"));
         groupBox_5->setGeometry(QRect(10, 460, 421, 61));
         diffuse_change = new QRadioButton(groupBox_5);
+        buttonGroup = new QButtonGroup(ToolClass);
+        buttonGroup->setObjectName(QStringLiteral("buttonGroup"));
+        buttonGroup->addButton(diffuse_change);
         diffuse_change->setObjectName(QStringLiteral("diffuse_change"));
         diffuse_change->setGeometry(QRect(10, 20, 141, 16));
         diffuse_change_2 = new QRadioButton(groupBox_5);
+        buttonGroup->addButton(diffuse_change_2);
         diffuse_change_2->setObjectName(QStringLiteral("diffuse_change_2"));
         diffuse_change_2->setGeometry(QRect(10, 40, 141, 16));
         pushButton_2 = new QPushButton(centralWidget);
@@ -218,11 +223,11 @@ public:
         invert_vector->setText(QApplication::translate("ToolClass", "\350\250\210\347\256\227\343\201\225\343\202\214\343\201\237\346\263\225\347\267\232\343\203\231\343\202\257\343\203\210\343\203\253\343\201\256\347\254\246\345\217\267\343\202\222\345\217\215\350\273\242", Q_NULLPTR));
         compute_occlusion->setText(QApplication::translate("ToolClass", "\343\202\252\343\202\257\343\203\253\343\203\274\343\202\270\343\203\247\343\203\263\350\250\210\347\256\227\n"
 "(\346\234\252\345\207\246\347\220\206\343\201\256\343\202\252\343\202\257\343\203\253\343\203\274\343\202\270\343\203\247\343\203\263\343\202\222\350\250\210\347\256\227\343\201\227\343\200\201\347\265\220\346\236\234\343\202\222\343\202\242\343\203\253\343\203\225\343\202\241\343\203\201\343\203\243\343\203\215\343\203\253\343\201\253\346\240\274\347\264\215\343\201\227\343\201\276\343\201\231\343\200\202)", Q_NULLPTR));
-        pushButton->setText(QApplication::translate("ToolClass", "compute", Q_NULLPTR));
+        pushButton->setText(QApplication::translate("ToolClass", "compute (ctrl+b)", Q_NULLPTR));
         groupBox_5->setTitle(QApplication::translate("ToolClass", "\343\203\227\343\203\254\343\203\223\343\203\245\343\203\274\347\224\273\345\203\217", Q_NULLPTR));
         diffuse_change->setText(QApplication::translate("ToolClass", "\343\203\207\343\202\243\343\203\225\343\203\245\343\203\274\343\202\272\343\203\236\343\203\203\343\203\227", Q_NULLPTR));
         diffuse_change_2->setText(QApplication::translate("ToolClass", "\343\203\216\343\203\274\343\203\236\343\203\253\343\203\236\343\203\203\343\203\227", Q_NULLPTR));
-        pushButton_2->setText(QApplication::translate("ToolClass", "\345\210\235\346\234\237\350\250\255\345\256\232\343\201\253\346\210\273\343\201\231", Q_NULLPTR));
+        pushButton_2->setText(QApplication::translate("ToolClass", "\345\210\235\346\234\237\350\250\255\345\256\232\343\201\253\346\210\273\343\201\231 (ctrl+r)", Q_NULLPTR));
         menu->setTitle(QApplication::translate("ToolClass", "&File", Q_NULLPTR));
     } // retranslateUi
 
